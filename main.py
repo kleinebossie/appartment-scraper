@@ -56,6 +56,7 @@ class ApartmentScraperAgent:
                 # Send notification
                 if self.notifier.send_notification(new_listings):
                     logger.info("Notification sent successfully!")
+                    logger.info("notifications.json has been updated with the new listings.")
                 else:
                     logger.error("Failed to send notification!")
                 
@@ -64,6 +65,7 @@ class ApartmentScraperAgent:
                     logger.info(f"New listing: {listing['title']} - {listing['price']} - {listing['location']}")
             else:
                 logger.info("No new listings found.")
+                logger.info("seen_listings.json has been updated with current listings to prevent future duplicates.")
                 
         except Exception as e:
             logger.error(f"Error during listing check: {e}")
@@ -73,6 +75,7 @@ class ApartmentScraperAgent:
         logger.info("Running apartment scraper once...")
         self.check_for_new_listings()
         logger.info("Single run completed.")
+        logger.info("Both seen_listings.json and notifications.json have been updated.")
     
     def run_continuous(self):
         """Run the scraper continuously with scheduled checks."""

@@ -132,8 +132,12 @@ class SendGridNotifier:
                 try:
                     with open(self.notification_file, 'r', encoding='utf-8') as f:
                         existing_notifications = json.load(f)
-                except:
+                    logger.info(f"Loaded {len(existing_notifications)} existing notifications from {self.notification_file}")
+                except Exception as e:
+                    logger.warning(f"Error loading existing notifications from {self.notification_file}: {e}")
                     existing_notifications = []
+            else:
+                logger.info(f"No existing notifications file found at {self.notification_file}, creating new one")
             
             # Add new notification
             existing_notifications.append(notification_data)
@@ -141,17 +145,27 @@ class SendGridNotifier:
             # Keep only last 50 notifications
             if len(existing_notifications) > 50:
                 existing_notifications = existing_notifications[-50:]
+                logger.info(f"Trimmed notifications to last 50 entries")
             
             # Save to file
             with open(self.notification_file, 'w', encoding='utf-8') as f:
                 json.dump(existing_notifications, f, indent=2, ensure_ascii=False)
             
-            logger.info(f"Saved {len(listings)} new listings to {self.notification_file}")
+            logger.info(f"Successfully saved {len(listings)} new listings to {self.notification_file}")
             return True
             
         except Exception as e:
-            logger.error(f"Error saving local notification: {e}")
-            return False
+            logger.error(f"Error saving local notification to {self.notification_file}: {e}")
+            # Try to create the directory if it doesn't exist
+            try:
+                os.makedirs(os.path.dirname(self.notification_file) if os.path.dirname(self.notification_file) else '.', exist_ok=True)
+                with open(self.notification_file, 'w', encoding='utf-8') as f:
+                    json.dump([notification_data], f, indent=2, ensure_ascii=False)
+                logger.info(f"Successfully created and saved {len(listings)} new listings to {self.notification_file}")
+                return True
+            except Exception as e2:
+                logger.error(f"Failed to create and save notification: {e2}")
+                return False
     
     def print_notification(self, listings: List[Dict]) -> bool:
         """Print notifications to console."""

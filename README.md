@@ -63,6 +63,20 @@ This will:
 - Send a test email via SendGrid
 - Test local file and console notifications
 
+### Test Duplicate Detection
+
+To verify that duplicate detection is working properly:
+
+```bash
+python3 test_duplicate_detection.py
+```
+
+This will:
+- Check the current state of `seen_listings.json` and `notifications.json`
+- Run the scraper once and send notifications
+- Verify that both files are updated correctly
+- Test that running the scraper again doesn't find duplicate listings
+
 ### Run Once
 
 To run the scraper once and exit:
@@ -249,6 +263,8 @@ The project is configured to run once per execution (perfect for cron scheduling
 - **No persistent worker**: Perfect for Railway's scheduled job model
 - **Resource efficient**: Only runs when scheduled, not continuously
 - **Reliable**: Each job is independent and doesn't depend on previous runs
+- **Duplicate prevention**: Both `seen_listings.json` and `notifications.json` are properly updated to prevent duplicate notifications
+- **Better logging**: Enhanced logging helps debug any issues with file persistence on Railway
 
 ## License
 

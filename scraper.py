@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import os
 from bs4 import BeautifulSoup
 from typing import List, Dict, Optional
 import logging
@@ -101,12 +102,14 @@ class ParariusScraper:
         try:
             with open(LISTINGS_FILE, 'r') as f:
                 data = json.load(f)
-                return set(data.get('seen_ids', []))
+                seen_ids = set(data.get('seen_ids', []))
+                logger.info(f"Successfully loaded {len(seen_ids)} seen listings from {LISTINGS_FILE}")
+                return seen_ids
         except FileNotFoundError:
-            logger.info("No previous listings file found, starting fresh")
+            logger.info(f"No previous listings file found at {LISTINGS_FILE}, starting fresh")
             return set()
         except Exception as e:
-            logger.error(f"Error loading seen listings: {e}")
+            logger.error(f"Error loading seen listings from {LISTINGS_FILE}: {e}")
             return set()
     
     def save_seen_listings(self, seen_ids: set):
@@ -115,13 +118,25 @@ class ParariusScraper:
             data = {'seen_ids': list(seen_ids)}
             with open(LISTINGS_FILE, 'w') as f:
                 json.dump(data, f, indent=2)
+            logger.info(f"Successfully saved {len(seen_ids)} seen listings to {LISTINGS_FILE}")
         except Exception as e:
-            logger.error(f"Error saving seen listings: {e}")
+            logger.error(f"Error saving seen listings to {LISTINGS_FILE}: {e}")
+            # Try to create the file if it doesn't exist
+            try:
+                os.makedirs(os.path.dirname(LISTINGS_FILE) if os.path.dirname(LISTINGS_FILE) else '.', exist_ok=True)
+                with open(LISTINGS_FILE, 'w') as f:
+                    json.dump(data, f, indent=2)
+                logger.info(f"Successfully created and saved {len(seen_ids)} seen listings to {LISTINGS_FILE}")
+            except Exception as e2:
+                logger.error(f"Failed to create and save seen listings: {e2}")
     
     def get_new_listings(self) -> List[Dict]:
         """Get new listings that haven't been seen before."""
         current_listings = self.get_current_listings()
         seen_listings = self.load_seen_listings()
+        
+        logger.info(f"Loaded {len(seen_listings)} previously seen listings")
+        logger.info(f"Found {len(current_listings)} current listings")
         
         new_listings = []
         current_ids = set()
@@ -130,9 +145,13 @@ class ParariusScraper:
             current_ids.add(listing['id'])
             if listing['id'] not in seen_listings:
                 new_listings.append(listing)
+                logger.info(f"New listing found: {listing['id']}")
+            else:
+                logger.debug(f"Listing already seen: {listing['id']}")
         
         # Update seen listings with current ones
         self.save_seen_listings(current_ids)
+        logger.info(f"Updated seen_listings.json with {len(current_ids)} listings")
         
         logger.info(f"Found {len(new_listings)} new listings")
         return new_listings 
