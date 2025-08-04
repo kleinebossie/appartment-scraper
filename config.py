@@ -6,7 +6,7 @@ load_dotenv()
 
 # Website configuration
 TARGET_URL = "https://www.pararius.nl/huurwoningen/delft/0-1500/straal-10/2-slaapkamers"
-CHECK_INTERVAL_MINUTES = 30  # How often to check for new listings
+CHECK_INTERVAL_MINUTES = int(os.getenv('CHECK_INTERVAL_MINUTES', 30))  # How often to check for new listings
 
 # SendGrid configuration
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')

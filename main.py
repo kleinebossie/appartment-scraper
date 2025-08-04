@@ -76,10 +76,11 @@ class ApartmentScraperAgent:
     
     def run_continuous(self):
         """Run the scraper continuously with scheduled checks."""
-        logger.info(f"Starting apartment scraper agent (checking every {CHECK_INTERVAL_MINUTES} minutes)...")
+        import config
+        logger.info(f"Starting apartment scraper agent (checking every {config.CHECK_INTERVAL_MINUTES} minutes)...")
         
         # Schedule the job
-        schedule.every(CHECK_INTERVAL_MINUTES).minutes.do(self.check_for_new_listings)
+        schedule.every(config.CHECK_INTERVAL_MINUTES).minutes.do(self.check_for_new_listings)
         
         # Run initial check
         self.check_for_new_listings()
@@ -141,9 +142,9 @@ def main():
     
     # Override interval if specified
     if args.interval:
-        from config import CHECK_INTERVAL_MINUTES
-        CHECK_INTERVAL_MINUTES = args.interval
-        logger.info(f"Using custom interval: {CHECK_INTERVAL_MINUTES} minutes")
+        import config
+        config.CHECK_INTERVAL_MINUTES = args.interval
+        logger.info(f"Using custom interval: {config.CHECK_INTERVAL_MINUTES} minutes")
     
     agent = ApartmentScraperAgent()
     
