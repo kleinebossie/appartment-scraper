@@ -196,6 +196,60 @@ This tool is for personal use only. Please respect the website's terms of servic
 
 Feel free to submit issues, feature requests, or pull requests to improve this tool.
 
+## Railway Deployment
+
+This project is optimized for deployment on Railway with scheduled jobs. Here's how to deploy it:
+
+### 1. Deploy to Railway
+
+1. Go to [Railway](https://railway.app/) and sign in
+2. Click **New Project** → **Deploy from GitHub repo**
+3. Connect your GitHub and select this repository
+4. Railway will automatically detect the Python project and deploy it
+
+### 2. Configure Environment Variables
+
+In your Railway project dashboard:
+1. Go to the **Variables** tab
+2. Add all the variables from your `.env` file:
+   ```
+   SENDGRID_API_KEY=SG.your_api_key_here
+   SENDGRID_FROM_EMAIL=your_verified_email@gmail.com
+   RECIPIENT_EMAIL=your_email@gmail.com
+   ```
+
+### 3. Set Up Scheduled Jobs
+
+The project is configured to run once per execution (perfect for cron scheduling):
+
+1. In your Railway project, go to **Deployments** tab
+2. Click **New** → **Scheduled Job**
+3. Set the cron expression to run every hour from 8:00 to 20:00:
+   ```
+   0 8-20 * * *
+   ```
+4. Set the command to:
+   ```
+   python3 railway_job.py
+   ```
+   Or alternatively:
+   ```
+   python3 main.py --once
+   ```
+
+### 4. Monitor Your Jobs
+
+- View job logs in the Railway dashboard
+- Check the **Deployments** tab for job history
+- Adjust the schedule as needed
+
+### Why This Setup Works
+
+- **Single execution**: The `--once` flag ensures the script runs once and exits cleanly
+- **No persistent worker**: Perfect for Railway's scheduled job model
+- **Resource efficient**: Only runs when scheduled, not continuously
+- **Reliable**: Each job is independent and doesn't depend on previous runs
+
 ## License
 
 This project is open source and available under the MIT License. 
