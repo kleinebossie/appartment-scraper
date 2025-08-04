@@ -1,10 +1,8 @@
-# Email Configuration
-# For Gmail, you'll need to use an App Password if 2FA is enabled
-SMTP_SERVER=smtp.gmail.com
-SMTP_PORT=587
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-app-password
-RECIPIENT_EMAIL=your-email@gmail.com
+# SendGrid Configuration
+# Get your API key from: https://sendgrid.com/
+SENDGRID_API_KEY=SG.your_api_key_here
+SENDGRID_FROM_EMAIL=your_verified_email@gmail.com
+RECIPIENT_EMAIL=your_email@gmail.com
 
 # Optional: Override check interval (in minutes)
 # CHECK_INTERVAL_MINUTES=30 

@@ -8,11 +8,9 @@ load_dotenv()
 TARGET_URL = "https://www.pararius.nl/huurwoningen/delft/0-1500/straal-10/2-slaapkamers"
 CHECK_INTERVAL_MINUTES = 30  # How often to check for new listings
 
-# Email configuration
-SMTP_SERVER = os.getenv('SMTP_SERVER', 'smtp.gmail.com')
-SMTP_PORT = int(os.getenv('SMTP_PORT', '587'))
-EMAIL_USER = os.getenv('EMAIL_USER')
-EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+# SendGrid configuration
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+SENDGRID_FROM_EMAIL = os.getenv('SENDGRID_FROM_EMAIL')
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 
 # File to store previously seen listings

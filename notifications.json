@@ -1,0 +1,190 @@
+[
+  {
+    "timestamp": "2025-08-04T11:24:28.239488",
+    "count": 1,
+    "listings": [
+      {
+        "title": "Test Apartment Listing",
+        "price": "€1,200",
+        "location": "Test Location, Delft",
+        "details": "Test details - 2 bedrooms, 60m²",
+        "link": "https://www.pararius.nl"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-08-04T11:29:32.296527",
+    "count": 1,
+    "listings": [
+      {
+        "title": "Test Apartment Listing",
+        "price": "€1,200",
+        "location": "Test Location, Delft",
+        "details": "Test details - 2 bedrooms, 60m²",
+        "link": "https://www.pararius.nl"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-08-04T11:30:38.238052",
+    "count": 1,
+    "listings": [
+      {
+        "title": "Test Apartment Listing",
+        "price": "€1,200",
+        "location": "Test Location, Delft",
+        "details": "Test details - 2 bedrooms, 60m²",
+        "link": "https://www.pararius.nl"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-08-04T11:30:43.921367",
+    "count": 1,
+    "listings": [
+      {
+        "title": "Test Apartment Listing",
+        "price": "€1,200",
+        "location": "Test Location, Delft",
+        "details": "Test details - 2 bedrooms, 60m²",
+        "link": "https://www.pararius.nl"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-08-04T12:26:38.948104",
+    "count": 1,
+    "listings": [
+      {
+        "title": "Test Apartment Listing",
+        "price": "€1,200",
+        "location": "Test Location, Delft",
+        "details": "Test details - 2 bedrooms, 60m²",
+        "link": "https://www.pararius.nl"
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-08-04T12:27:16.596966",
+    "count": 13,
+    "listings": [
+      {
+        "id": "_location_not_available_€ 1.347_per_maand",
+        "title": "",
+        "price": "€ 1.347 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/vlaardingen/85b96202/van-der-werffstraat",
+        "timestamp": 1754303235.8766022
+      },
+      {
+        "id": "_location_not_available_€ 970_per_maand",
+        "title": "",
+        "price": "€ 970 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/schiedam/2dd2bf93/boylestraat",
+        "timestamp": 1754303235.8770308
+      },
+      {
+        "id": "_location_not_available_€ 1.265_per_maand",
+        "title": "",
+        "price": "€ 1.265 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/schiedam/93c2d6b5/vlaardingerdijk",
+        "timestamp": 1754303235.877429
+      },
+      {
+        "id": "_location_not_available_€ 1.291_per_maand",
+        "title": "",
+        "price": "€ 1.291 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/berkel-en-rodenrijs/c2f47f70/christiaan-eijkmanstraat",
+        "timestamp": 1754303235.877824
+      },
+      {
+        "id": "_location_not_available_€ 1.195_per_maand",
+        "title": "",
+        "price": "€ 1.195 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/den-haag/16c064e6/laan-van-nieuw-oost-indie",
+        "timestamp": 1754303235.87823
+      },
+      {
+        "id": "_location_not_available_€ 1.316_per_maand",
+        "title": "",
+        "price": "€ 1.316 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/den-haag/ccc1d088/loosduinseweg",
+        "timestamp": 1754303235.878622
+      },
+      {
+        "id": "_location_not_available_€ 1.495_per_maand",
+        "title": "",
+        "price": "€ 1.495 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/delft/0c3ffb3b/arthur-van-schendelplein",
+        "timestamp": 1754303235.879012
+      },
+      {
+        "id": "_location_not_available_€ 1.094_per_maand",
+        "title": "",
+        "price": "€ 1.094 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/den-haag/be0155eb/linnaeusstraat",
+        "timestamp": 1754303235.879413
+      },
+      {
+        "id": "_location_not_available_€ 1.150_per_maand",
+        "title": "",
+        "price": "€ 1.150 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/delft/d0ddff91/bagijnhof",
+        "timestamp": 1754303235.8798149
+      },
+      {
+        "id": "_location_not_available_€ 480_per_maand",
+        "title": "",
+        "price": "€ 480 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/den-haag/ef4a2134/schrijnwerkersgaarde",
+        "timestamp": 1754303235.880199
+      },
+      {
+        "id": "_location_not_available_€ 1.013_per_maand",
+        "title": "",
+        "price": "€ 1.013 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/den-haag/54b9c88b/escamplaan",
+        "timestamp": 1754303235.880625
+      },
+      {
+        "id": "_location_not_available_€ 1.052_per_maand",
+        "title": "",
+        "price": "€ 1.052 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/den-haag/37d43a65/escamplaan",
+        "timestamp": 1754303235.881151
+      },
+      {
+        "id": "_location_not_available_€ 700_per_maand",
+        "title": "",
+        "price": "€ 700 per maand",
+        "location": "Location not available",
+        "details": "Details not available",
+        "link": "https://www.pararius.nl/appartement-te-huur/berkel-en-rodenrijs/56957f5a/oranjestraat",
+        "timestamp": 1754303235.881614
+      }
+    ]
+  }
+]

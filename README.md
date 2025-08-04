@@ -1,22 +1,23 @@
 # Apartment Scraper Agent
 
-A Python agent that automatically scrapes apartment listings from Pararius.nl for Delft and sends email notifications when new listings appear.
+A lightweight Python agent that automatically scrapes apartment listings from Pararius.nl for Delft and sends email notifications when new listings appear using SendGrid.
 
 ## Features
 
 - 🏠 Scrapes apartment listings from Pararius.nl for Delft (€0-1500, 2 bedrooms, 10km radius)
-- 📧 Sends beautiful HTML email notifications for new listings
+- 📧 Sends beautiful HTML email notifications via SendGrid
 - ⏰ Configurable check intervals (default: 30 minutes)
 - 💾 Tracks previously seen listings to avoid duplicate notifications
 - 🔄 Continuous monitoring with graceful shutdown
 - 📝 Comprehensive logging
 - 🧪 Built-in testing capabilities
+- 🚀 Optimized for performance and memory efficiency
 
 ## Requirements
 
 - Python 3.7+
 - Internet connection
-- Email account (Gmail recommended)
+- SendGrid account (free tier: 100 emails/day)
 
 ## Installation
 
@@ -27,27 +28,25 @@ A Python agent that automatically scrapes apartment listings from Pararius.nl fo
    pip install -r requirements.txt
    ```
 
-3. **Set up email configuration:**
+3. **Set up SendGrid:**
    
    Create a `.env` file in the project directory:
    ```bash
    cp env_example.txt .env
    ```
    
-   Edit the `.env` file with your email credentials:
+   Edit the `.env` file with your SendGrid credentials:
    ```
-   SMTP_SERVER=smtp.gmail.com
-   SMTP_PORT=587
-   EMAIL_USER=your-email@gmail.com
-   EMAIL_PASSWORD=your-app-password
-   RECIPIENT_EMAIL=your-email@gmail.com
+   SENDGRID_API_KEY=SG.your_api_key_here
+   SENDGRID_FROM_EMAIL=your_verified_email@gmail.com
+   RECIPIENT_EMAIL=your_email@gmail.com
    ```
 
-   **For Gmail users:** If you have 2-factor authentication enabled, you'll need to create an "App Password":
-   1. Go to your Google Account settings
-   2. Navigate to Security → 2-Step Verification → App passwords
-   3. Generate a new app password for "Mail"
-   4. Use this password in your `.env` file
+   **To get SendGrid credentials:**
+   1. Sign up at [SendGrid](https://sendgrid.com/) (free)
+   2. Go to Settings → API Keys → Create API Key
+   3. Go to Settings → Sender Authentication → Verify a Single Sender
+   4. Use your verified email as `SENDGRID_FROM_EMAIL`
 
 ## Usage
 
@@ -56,19 +55,20 @@ A Python agent that automatically scrapes apartment listings from Pararius.nl fo
 Before running the agent, test all components:
 
 ```bash
-python main.py --test
+python3 main.py --test
 ```
 
 This will:
 - Test the scraper by fetching current listings
-- Send a test email to verify your email configuration
+- Send a test email via SendGrid
+- Test local file and console notifications
 
 ### Run Once
 
 To run the scraper once and exit:
 
 ```bash
-python main.py --once
+python3 main.py --once
 ```
 
 ### Run Continuously
@@ -76,7 +76,7 @@ python main.py --once
 To start the agent for continuous monitoring:
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 The agent will:
@@ -89,19 +89,17 @@ The agent will:
 To override the default 30-minute interval:
 
 ```bash
-python main.py --interval 15  # Check every 15 minutes
+python3 main.py --interval 15  # Check every 15 minutes
 ```
 
 ## Configuration
 
-### Email Settings
+### SendGrid Settings
 
-Edit the `.env` file to configure your email settings:
+Edit the `.env` file to configure SendGrid:
 
-- `SMTP_SERVER`: Your email provider's SMTP server (default: smtp.gmail.com)
-- `SMTP_PORT`: SMTP port (default: 587)
-- `EMAIL_USER`: Your email address
-- `EMAIL_PASSWORD`: Your email password or app password
+- `SENDGRID_API_KEY`: Your SendGrid API key (starts with "SG.")
+- `SENDGRID_FROM_EMAIL`: Your verified sender email address
 - `RECIPIENT_EMAIL`: Where to send notifications
 
 ### Scraping Settings
@@ -120,7 +118,10 @@ Edit `config.py` to modify scraping behavior:
 
 3. **Detection**: New listings are identified by comparing current listings with previously seen ones.
 
-4. **Notification**: When new listings are found, a beautifully formatted HTML email is sent with all the details and direct links to the listings.
+4. **Notification**: When new listings are found:
+   - SendGrid email notification with beautiful HTML formatting
+   - Local file backup (`notifications.json`)
+   - Console output for immediate feedback
 
 5. **Logging**: All activities are logged to both console and file for monitoring and debugging.
 
@@ -130,22 +131,23 @@ Edit `config.py` to modify scraping behavior:
 apartment-scraper/
 ├── main.py              # Main application entry point
 ├── scraper.py           # Web scraping logic
-├── email_notifier.py    # Email notification system
+├── sendgrid_notifier.py # SendGrid email notification system
 ├── config.py            # Configuration settings
 ├── requirements.txt     # Python dependencies
 ├── env_example.txt      # Example environment variables
 ├── README.md           # This file
 ├── apartment_scraper.log # Application logs
-└── seen_listings.json   # Tracked listings (created automatically)
+├── seen_listings.json   # Tracked listings (created automatically)
+└── notifications.json   # Notification history (created automatically)
 ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **"Email configuration incomplete"**
-   - Make sure your `.env` file exists and contains all required email settings
-   - For Gmail, ensure you're using an App Password if 2FA is enabled
+1. **"SendGrid configuration incomplete"**
+   - Make sure your `.env` file exists and contains all required SendGrid settings
+   - Verify your sender email is verified in SendGrid
 
 2. **"Error fetching page"**
    - Check your internet connection
@@ -153,9 +155,9 @@ apartment-scraper/
    - The website structure might have changed (check the scraper code)
 
 3. **"Failed to send test email"**
-   - Verify your email credentials
-   - Check if your email provider allows SMTP access
-   - For Gmail, ensure "Less secure app access" is enabled or use App Passwords
+   - Verify your SendGrid API key is correct
+   - Make sure your sender email is verified in SendGrid
+   - Check if you've exceeded the free tier limit (100 emails/day)
 
 4. **No listings found**
    - The website structure might have changed
@@ -175,6 +177,16 @@ If Pararius changes their website structure, you may need to update the CSS sele
 - Price: `div.listing-search-item__price`
 - Location: `div.listing-search-item__location`
 - Details: `div.listing-search-item__details`
+
+## Performance Benefits
+
+This streamlined version offers:
+
+- **Reduced memory usage** - Only essential components loaded
+- **Faster startup** - No complex OAuth2 or multiple email method checks
+- **Simpler maintenance** - Single email service to manage
+- **Better reliability** - SendGrid's professional email delivery
+- **Lower resource consumption** - Optimized for long-running operation
 
 ## Legal Notice
 

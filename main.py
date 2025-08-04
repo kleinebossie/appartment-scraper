@@ -11,7 +11,7 @@ import signal
 import sys
 from datetime import datetime
 from scraper import ParariusScraper
-from email_notifier import EmailNotifier
+from sendgrid_notifier import SendGridNotifier
 from config import CHECK_INTERVAL_MINUTES
 
 # Set up logging
@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 class ApartmentScraperAgent:
     def __init__(self):
         self.scraper = ParariusScraper()
-        self.notifier = EmailNotifier()
+        self.notifier = SendGridNotifier()
         self.running = True
         
         # Set up signal handlers for graceful shutdown
@@ -53,11 +53,11 @@ class ApartmentScraperAgent:
             if new_listings:
                 logger.info(f"Found {len(new_listings)} new listing(s)!")
                 
-                # Send email notification
+                # Send notification
                 if self.notifier.send_notification(new_listings):
-                    logger.info("Email notification sent successfully!")
+                    logger.info("Notification sent successfully!")
                 else:
-                    logger.error("Failed to send email notification!")
+                    logger.error("Failed to send notification!")
                 
                 # Log the new listings
                 for listing in new_listings:
@@ -118,10 +118,10 @@ class ApartmentScraperAgent:
             logger.error(f"Scraper test failed: {e}")
             return False
         
-        # Test email configuration
-        logger.info("Testing email configuration...")
-        if not self.notifier.test_email_configuration():
-            logger.error("Email test failed!")
+        # Test notification system
+        logger.info("Testing notification system...")
+        if not self.notifier.test_notification_system():
+            logger.error("Notification test failed!")
             return False
         
         logger.info("All component tests passed!")
