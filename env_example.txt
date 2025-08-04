@@ -1,0 +1,10 @@
+# Email Configuration
+# For Gmail, you'll need to use an App Password if 2FA is enabled
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+RECIPIENT_EMAIL=your-email@gmail.com
+
+# Optional: Override check interval (in minutes)
+# CHECK_INTERVAL_MINUTES=30 
